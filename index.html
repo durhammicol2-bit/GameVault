@@ -838,17 +838,8 @@ function recordRecent(id) {
 }
 async function listZones() {
     try {
-        console.log('Loading zones from:', zonesURL);
         const response = await fetch(zonesURL+"?t="+Date.now());
-        console.log('Response status:', response.status);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        
         const json = await response.json();
-        console.log('Zones loaded:', json.length, 'zones');
-        
         zones = json;
         zones[0].featured = true; // always gonna be the discord
         await fetchPopularity();
@@ -909,7 +900,7 @@ async function listZones() {
             }
         }
     } catch (error) {
-        console.error('Error loading zones:', error);
+        console.error(error);
         container.innerHTML = `Error loading zones: ${error}`;
     }
 }
